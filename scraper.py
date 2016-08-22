@@ -22,10 +22,12 @@ def getCardImageURL(cardName, cardSet):
 #
 #   Retrieves a cards current price on Channel Fireball
 #
-def getCFBPrice(cardName, cardSet):
-    cfbURL = "http://store.channelfireball.com/products/search?q=" + urllib.quote(cardName)
-    if cardSet:
-        cfbURL += " " + urllib.quote(cardSet)
+def getCFBPrice(cardName, foil):
+    cfbURL = "http://store.channelfireball.com/products/search?q=" + urllib.quote(cardName) + "&search[with_descriptor_values][256][]="
+    if foil:
+        cfbURL += "Foil"
+    else
+        cfbURL += "Regular"
     htmlFile = urllib.urlopen(cfbURL)
     rawHTML = htmlFile.read()    
     tempIndex = rawHTML.find("grid-item-price")
