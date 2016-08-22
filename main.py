@@ -49,14 +49,14 @@ class GetImageURLHandler(webapp2.RequestHandler):
 class CFBPriceCheckHandler(webapp2.RequestHandler):
     def get(self):
         cardName = self.request.get('cardname')
-        cardSet = self.request.get('cardset')
+        cardFoil = self.request.get('foil')
         retVal = None
         if not cardSet:
             retVal = memcache.get('CFB '  + cardName)
         else:
             retVal = memcache.get('CFB ' + cardName + " " + cardSet)
         if retVal is None:
-            retVal = getCFBPrice(cardName, cardSet)
+            retVal = getCFBPrice(cardName, cardFoil)
             if not cardSet:
                 memcache.add('CFB '  + cardName, retVal, 300)
             else:
